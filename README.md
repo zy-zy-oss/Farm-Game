@@ -1,8 +1,6 @@
-# React + Vite
+❤️ 我的第一个从自己用素材绘图开始制作的小游戏
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+❤️ 巧妙地使用了React.js+Vite，Pixi.js引擎
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![1735407926595](image/README/1735407926595.png)
