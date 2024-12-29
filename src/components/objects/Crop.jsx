@@ -1,71 +1,111 @@
 import { Container, AnimatedSprite, Graphics } from '@pixi/react';
 import { useState, useCallback, useEffect, useMemo } from 'react';
-import {useCropAnimations} from '../../hooks/useAnimations/useCropAnimations';
+import * as PIXI from 'pixi.js';
+
+// 导入作物精灵图
+import cropsSheet from '../../assets/crops/crop.png';
+
+// 设置精灵图
+const setupSpritesheet = () => {
+    const baseTexture = PIXI.BaseTexture.from(cropsSheet);
+    baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+    
+    const textures = {
+        'type1': {},
+        'type2': {}
+    };
+
+    // 精灵图是 96*32 像素
+    // 每行6个帧，每帧 16*16 像素
+    // 跳过第一帧（包装的种子），只使用后面5个阶段
+    for (let type = 0; type < 2; type++) {
+        const typeName = `type${type + 1}`;
+        for (let stage = 0; stage < 5; stage++) {
+            textures[typeName][`stage_${stage}`] = [
+                new PIXI.Texture(
+                    baseTexture,
+                    new PIXI.Rectangle((stage + 1) * 16, type * 16, 16, 16)  // +1 跳过第一帧
+                )
+            ];
+        }
+    }
+    return textures;
+};
+
+// 预处理所有贴图
+const cropTextures = setupSpritesheet();
 
 const Crop = ({ 
     id, 
     position, 
-    type,
-    growthStage,
-    maxStage,
+    type = 'type1',
+    growthStage = 0,
+    maxStage = 4,
     growthTime,
     plantedTime,
     watered,
+    needsWater,
+    withered,
+    harvestable,
     canInteract,
     onInteract,
     onClick
 }) => {
     const [currentStage, setCurrentStage] = useState(growthStage);
     const [isWatered, setIsWatered] = useState(watered);
-    const [currentAnimation, setCurrentAnimation] = useState('idle');
-    const [isAnimating, setIsAnimating] = useState(false);
-    const animations = useCropAnimations(type);
+    const [progress, setProgress] = useState(0);  // 添加进度状态
 
     const currentTextures = useMemo(() => {
-        return animations?.[`stage_${currentStage}`] || animations?.['idle'] || [];
-    }, [animations, currentStage]);
+        return cropTextures[type]?.[`stage_${currentStage}`] || cropTextures['type1']['stage_0'];
+    }, [type, currentStage]);
 
-    // 处理生长
+    // 处理生长进度
     useEffect(() => {
-        if (!plantedTime || currentStage >= maxStage || !isWatered) return;
-        
-        const checkGrowth = () => {
-            const now = Date.now();
-            const timePassed = now - plantedTime;
-            const newStage = Math.floor(timePassed / growthTime);
-            
-            if (newStage > currentStage && newStage <= maxStage) {
-                setCurrentStage(newStage);
-                if (onInteract) {
-                    onInteract(id, newStage);
-                }
-            }
-        };
+        if (!isWatered || withered) return;
 
-        const timer = setInterval(checkGrowth, 1000);
-        checkGrowth();
+        const startTime = Date.now();
+        const stageTime = growthTime / 5;  // 每个阶段的时间
+
+        const timer = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const currentProgress = elapsed / stageTime;
+
+            if (currentProgress >= 1) {
+                // 进入下一个生长阶段
+                const nextStage = currentStage + 1;
+                if (nextStage <= maxStage) {
+                    setCurrentStage(nextStage);
+                    setIsWatered(false);
+                    if (onInteract) {
+                        onInteract(id, nextStage);
+                    }
+                }
+                clearInterval(timer);
+            } else {
+                setProgress(currentProgress);
+            }
+        }, 100);  // 每100ms更新一次进度
 
         return () => clearInterval(timer);
-    }, [id, plantedTime, currentStage, maxStage, growthTime, isWatered, onInteract]);
+    }, [isWatered, currentStage, maxStage, growthTime, withered, id, onInteract]);
 
     const handleClick = useCallback((e) => {
-        if (!canInteract || isAnimating) return;
+        e.stopPropagation();
         
-        setIsAnimating(true);
+        if (!canInteract) return;
         
-        if (currentStage >= maxStage) {
-            setCurrentAnimation('harvest');
-            if (onClick) {
-                onClick(e, { action: 'harvest' });
-            }
-        } else if (!isWatered) {
-            setCurrentAnimation('water');
+        if (!isWatered && !withered) {
             setIsWatered(true);
+            setProgress(0);  // 重置进度
             if (onClick) {
                 onClick(e, { action: 'water' });
             }
+        } else if (harvestable) {
+            if (onClick) {
+                onClick(e, { action: 'harvest' });
+            }
         }
-    }, [canInteract, isAnimating, currentStage, maxStage, isWatered, onClick]);
+    }, [canInteract, isWatered, withered, harvestable, onClick]);
 
     return (
         <Container 
@@ -74,42 +114,38 @@ const Crop = ({
             cursor={canInteract ? 'pointer' : 'default'}
             pointerdown={handleClick}
         >
-            {currentTextures.length > 0 && (
+            {currentTextures && (
                 <AnimatedSprite
-                    anchor={0.5}
+                    anchor={[0.5, 0.5]}
                     textures={currentTextures}
-                    isPlaying={isAnimating}
+                    isPlaying={false}
                     animationSpeed={0.1}
-                    loop={false}
-                    onComplete={() => {
-                        setIsAnimating(false);
-                        setCurrentAnimation('idle');
-                    }}
+                    scale={2}
                 />
             )}
-            {/* 显示浇水和生长状态 */}
-            {canInteract && (
-                <Graphics
-                    draw={g => {
-                        g.clear();
-                        // 显示浇水状态
-                        if (isWatered) {
-                            g.beginFill(0x0000FF, 0.3);
-                            g.drawCircle(0, 15, 5);
-                            g.endFill();
-                        }
-                        // 显示生长进度
-                        if (currentStage < maxStage) {
-                            g.beginFill(0x000000, 0.3);
-                            g.drawRect(-15, -30, 30, 5);
-                            g.endFill();
-                            g.beginFill(0x00FF00);
-                            g.drawRect(-15, -30, (currentStage / maxStage) * 30, 5);
-                            g.endFill();
-                        }
-                    }}
-                />
-            )}
+            <Graphics
+                draw={g => {
+                    g.clear();
+                    // 显示浇水状态
+                    if (isWatered) {
+                        g.beginFill(0x00BFFF, 0.7);
+                        g.drawCircle(0, 15, 5);
+                        g.endFill();
+                    }
+                    // 显示生长进度
+                    if (currentStage < maxStage) {
+                        // 背景条
+                        g.beginFill(0x000000, 0.3);
+                        g.drawRect(-15, -30, 30, 5);
+                        g.endFill();
+                        // 进度条
+                        g.beginFill(0x00FF00, 0.5);
+                        const width = ((currentStage + progress) / maxStage) * 30;
+                        g.drawRect(-15, -30, width, 5);
+                        g.endFill();
+                    }
+                }}
+            />
         </Container>
     );
 };

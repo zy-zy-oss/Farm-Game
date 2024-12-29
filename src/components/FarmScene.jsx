@@ -111,7 +111,10 @@ const FarmScene = () => {
         width={960 * 2.5}
         height={480 * 2.5}
       />
-
+      <Player
+        onMove={handlePlayerMove}
+        checkCollision={checkCollision}
+      />
       {/* 添加游戏对象管理器 */}
       <ObjectsManager
         playerPosition={playerPosition}
@@ -120,10 +123,7 @@ const FarmScene = () => {
       />
 
 <DevTools cameraPosition={cameraPosition} />
-      <Player
-        onMove={handlePlayerMove}
-        checkCollision={checkCollision}
-      />
+
 
     </Container>
   );

@@ -1,88 +1,88 @@
-import { Container, AnimatedSprite, Graphics } from '@pixi/react';
-import { useState, useCallback, useEffect, useMemo } from 'react';
-import { useRockAnimations } from '../../hooks/useAnimations/useRockAnimations';
+import { Container, Sprite, Graphics } from '@pixi/react';
+import { useState, useCallback, useMemo } from 'react';
+import { SCALE_MODES, Texture } from 'pixi.js';
+import largeRock from '../../assets/rocks/big.png';
+import smallRock from '../../assets/rocks/small.png';
+import * as PIXI from 'pixi.js';
+const ROCK_CONFIGS = {
+    large: {
+        image: largeRock,
+        width: 32,
+        height: 32
+    },
+    small: {
+        image: smallRock,
+        width: 16,
+        height: 16
+    }
+};
 
-const Rock = ({ 
-    id, 
-    position, 
-    size, 
-    dropItems, 
-    health: initialHealth,
-    respawnTime,
+const Rock = ({
+    id,
+    position,
+    type = 'small',
+    maxHealth,
+    currentHealth,
     canInteract,
-    onInteract
+    onInteract,
+    onClick
 }) => {
-    const [currentHealth, setCurrentHealth] = useState(initialHealth);
-    const [isVisible, setIsVisible] = useState(true);
-    const [isAnimating, setIsAnimating] = useState(false);
-    const [currentAnimation, setCurrentAnimation] = useState('idle');
-    const animations = useRockAnimations(size);
+    const [health, setHealth] = useState(currentHealth);
+    const [isDestroyed, setIsDestroyed] = useState(false);
+
+    const texture = useMemo(() => {
+        const tex = Texture.from(ROCK_CONFIGS[type].image);
+        tex.baseTexture.scaleMode = SCALE_MODES.NEAREST;
+        return tex;
+    }, [type]);
 
     const handleClick = useCallback((e) => {
         e.stopPropagation();
         
-        if (!canInteract || isAnimating || !isVisible) {
-            return;
+        if (!canInteract || isDestroyed) return;
+        
+        const newHealth = health - 1;
+        setHealth(newHealth);
+        
+        if (onClick) {
+            onClick(e, { 
+                action: 'hit',
+                health: newHealth
+            });
         }
 
-        setIsAnimating(true);
-        setCurrentAnimation('shake');
-        
-        // 减少生命值
-        setCurrentHealth(prev => {
-            const newHealth = Math.max(0, prev - 1);
-            
-            // 如果生命值为0，触发消失和重生
-            if (newHealth === 0) {
-                setIsVisible(false);
-                setTimeout(() => {
-                    setIsVisible(true);
-                    setCurrentHealth(initialHealth);
-                }, respawnTime);
+        if (newHealth <= 0) {
+            setIsDestroyed(true);
+            if (onInteract) {
+                onInteract(id);
             }
-            
-            return newHealth;
-        });
+        }
+    }, [canInteract, health, id, onClick, onInteract, isDestroyed]);
 
-        // 调用交互回调
-        onInteract('rock', id, { items: dropItems });
-
-        setTimeout(() => {
-            setIsAnimating(false);
-            setCurrentAnimation('idle');
-        }, 500);
-
-    }, [canInteract, isAnimating, isVisible, id, dropItems, initialHealth, respawnTime, onInteract]);
-
-    if (!isVisible) return null;
+    if (isDestroyed) return null;
 
     return (
-        <Container 
+        <Container
             position={[position.x, position.y]}
-            interactive={true}
+            interactive={canInteract}
             cursor={canInteract ? 'pointer' : 'default'}
             pointerdown={handleClick}
         >
-            <AnimatedSprite
-                anchor={0.5}
-                textures={animations?.idle || []}
-                isPlaying={isAnimating}
-                animationSpeed={0.1}
-                loop={false}
+            <Sprite
+                texture={texture}
+                anchor={[0.5, 0.5]}
+                width={ROCK_CONFIGS[type].width}
+                height={ROCK_CONFIGS[type].height}
             />
-            
-            {/* 显示生命值 */}
-            {canInteract && (
+            {canInteract && health < maxHealth && (
                 <Graphics
                     draw={g => {
                         g.clear();
-                        // 背景条
                         g.beginFill(0x000000, 0.3);
-                        g.drawRect(-15, -30, 30, 5);
+                        g.drawRect(-15, -20, 30, 5);
                         g.endFill();
-                        // 生命值条
-                        g.beginFill(0x00FF00);
-                        g.drawRect(-15, -30, (currentHealth / initialHealth) * 30, 5);
+                        g.beginFill(0xFF0000, 0.5);
+                        g.drawRect(-15, -20, (health / maxHealth) * 30, 5);
                         g.endFill();
                     }}
                 />

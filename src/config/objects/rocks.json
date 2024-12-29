@@ -1,60 +1,224 @@
 {
   "rocks": [
     {
-      "id": "rock_01",
-      "position": { "x": 1571, "y": 886 },
-      "size": "large",
-      "dropItems": ["stone", "iron"],
-      "health": 5,
-      "respawnTime": 600000
+      "id": "rock_1",
+      "type": "large",
+      "position": {
+        "x": 1134.0849838586194,
+        "y": 403.3843100369525
+      },
+      "maxHealth": 5,
+      "currentHealth": 5,
+      "dropItems": ["stone", "iron"]
     },
     {
-      "id": "rock_02",
-      "position": { "x": 1549, "y": 901 },
-      "size": "medium",
-      "dropItems": ["stone", "coal"],
-      "health": 3,
-      "respawnTime": 480000
+      "id": "rock_2",
+      "type": "small",
+      "position": {
+        "x": 994.0849838586194,
+        "y": 418.3843100369525
+      },
+      "maxHealth": 2,
+      "currentHealth": 2,
+      "dropItems": ["stone"]
     },
     {
-      "id": "rock_03",
-      "position": { "x": 1168, "y": 418 },
-      "size": "small",
-      "dropItems": ["stone"],
-      "health": 2,
-      "respawnTime": 300000
+      "id": "rock_3",
+      "type": "large",
+      "position": {
+        "x": 1282.0849838586194,
+        "y": 251.3843100369525
+      },
+      "maxHealth": 5,
+      "currentHealth": 5,
+      "dropItems": ["stone", "iron"]
     },
     {
-      "id": "rock_04",
-      "position": { "x": 1022, "y": 415 },
-      "size": "large",
-      "dropItems": ["stone", "iron"],
-      "health": 5,
-      "respawnTime": 600000
+      "id": "rock_4",
+      "type": "small",
+      "position": {
+        "x": 1439.0849838586194,
+        "y": 321.3843100369525
+      },
+      "maxHealth": 2,
+      "currentHealth": 2,
+      "dropItems": ["stone"]
     },
     {
-      "id": "rock_05",
-      "position": { "x": 842, "y": 1037 },
-      "size": "medium",
-      "dropItems": ["stone", "coal"],
-      "health": 3,
-      "respawnTime": 480000
+      "id": "rock_5",
+      "type": "large",
+      "position": {
+        "x": 1274.706160598678,
+        "y": 1009.7375491919507
+      },
+      "maxHealth": 5,
+      "currentHealth": 5,
+      "dropItems": ["stone", "iron"]
     },
     {
-      "id": "rock_06",
-      "position": { "x": 975, "y": 1045 },
-      "size": "small",
-      "dropItems": ["stone"],
-      "health": 2,
-      "respawnTime": 300000
+      "id": "rock_6",
+      "type": "small",
+      "position": {
+        "x": 1446.706160598678,
+        "y": 1056.7375491919506
+      },
+      "maxHealth": 2,
+      "currentHealth": 2,
+      "dropItems": ["stone"]
     },
     {
-      "id": "rock_07",
-      "position": { "x": 1226, "y": 943 },
-      "size": "large",
-      "dropItems": ["stone", "iron"],
-      "health": 5,
-      "respawnTime": 600000
+      "id": "rock_7",
+      "type": "large",
+      "position": {
+        "x": 1561.706160598678,
+        "y": 957.7375491919507
+      },
+      "maxHealth": 5,
+      "currentHealth": 5,
+      "dropItems": ["stone", "iron"]
+    },
+    {
+      "id": "rock_8",
+      "type": "small",
+      "position": {
+        "x": 1569.3587700744292,
+        "y": 884.856725231363
+      },
+      "maxHealth": 2,
+      "currentHealth": 2,
+      "dropItems": ["stone"]
+    },
+    {
+      "id": "rock_9",
+      "type": "large",
+      "position": {
+        "x": 2083.7071997164726,
+        "y": 260.3899099574137
+      },
+      "maxHealth": 5,
+      "currentHealth": 5,
+      "dropItems": ["stone", "iron"]
+    },
+    {
+      "id": "rock_10",
+      "type": "small",
+      "position": {
+        "x": 2153.7071997164726,
+        "y": 615.3899099574137
+      },
+      "maxHealth": 2,
+      "currentHealth": 2,
+      "dropItems": ["stone"]
+    },
+    {
+      "id": "rock_11",
+      "type": "large",
+      "position": {
+        "x": 2179.7071997164726,
+        "y": 727.3899099574137
+      },
+      "maxHealth": 5,
+      "currentHealth": 5,
+      "dropItems": ["stone", "iron"]
+    },
+    {
+      "id": "rock_12",
+      "type": "small",
+      "position": {
+        "x": 2125.7071997164726,
+        "y": 803.3899099574137
+      },
+      "maxHealth": 2,
+      "currentHealth": 2,
+      "dropItems": ["stone"]
+    },
+    {
+      "id": "rock_13",
+      "type": "large",
+      "position": {
+        "x": 2060.7071997164726,
+        "y": 822.3899099574137
+      },
+      "maxHealth": 5,
+      "currentHealth": 5,
+      "dropItems": ["stone", "iron"]
+    },
+    {
+      "id": "rock_14",
+      "type": "small",
+      "position": {
+        "x": 2045.4075993782744,
+        "y": 893.9438829728789
+      },
+      "maxHealth": 2,
+      "currentHealth": 2,
+      "dropItems": ["stone"]
+    },
+    {
+      "id": "rock_15",
+      "type": "large",
+      "position": {
+        "x": 688.2052487487056,
+        "y": 220.88446971196691
+      },
+      "maxHealth": 5,
+      "currentHealth": 5,
+      "dropItems": ["stone", "iron"]
+    },
+    {
+      "id": "rock_16",
+      "type": "small",
+      "position": {
+        "x": 320.20524874870557,
+        "y": 304.8844697119669
+      },
+      "maxHealth": 2,
+      "currentHealth": 2,
+      "dropItems": ["stone"]
+    },
+    {
+      "id": "rock_17",
+      "type": "large",
+      "position": {
+        "x": 715.2052487487056,
+        "y": 95.88446971196691
+      },
+      "maxHealth": 5,
+      "currentHealth": 5,
+      "dropItems": ["stone", "iron"]
+    },
+    {
+      "id": "rock_18",
+      "type": "small",
+      "position": {
+        "x": 824.2052487487056,
+        "y": 86.88446971196691
+      },
+      "maxHealth": 2,
+      "currentHealth": 2,
+      "dropItems": ["stone"]
+    },
+    {
+      "id": "rock_19",
+      "type": "large",
+      "position": {
+        "x": 934.0512798355379,
+        "y": 94.54172706250284
+      },
+      "maxHealth": 5,
+      "currentHealth": 5,
+      "dropItems": ["stone", "iron"]
+    },
+    {
+      "id": "rock_20",
+      "type": "small",
+      "position": {
+        "x": 1029.051279835538,
+        "y": 63.541727062502844
+      },
+      "maxHealth": 2,
+      "currentHealth": 2,
+      "dropItems": ["stone"]
     }
   ]
-} 
+}

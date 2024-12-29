@@ -49,26 +49,7 @@
       "lastProduced": null,
       "happiness": 100,
       "hunger": 100
-    },
-    {
-      "id": "cow_06",
-      "position": { "x": 440, "y": 754 },
-      "type": "spotted",
-      "productType": "milk",
-      "productionTime": 43200000,
-      "lastProduced": null,
-      "happiness": 100,
-      "hunger": 100
-    },
-    {
-      "id": "cow_07",
-      "position": { "x": 388, "y": 820 },
-      "type": "brown",
-      "productType": "milk",
-      "productionTime": 43200000,
-      "lastProduced": null,
-      "happiness": 100,
-      "hunger": 100
     }
+
   ]
 } 

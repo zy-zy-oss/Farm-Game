@@ -1,88 +1,72 @@
-import { Container, AnimatedSprite, Graphics } from '@pixi/react';
-import { useState, useCallback, useEffect, useMemo } from 'react';
-import {useFruitTreeAnimations} from '../../hooks/useAnimations/useFruitTreeAnimations';
+import { Container, Sprite } from '@pixi/react';
+import { useCallback, useMemo, useState } from 'react';
+import * as PIXI from 'pixi.js';
+
+// 导入果树的不同状态贴图
+import fruitTree0 from '../../assets/trees/tree2.png';
+import fruitTree1 from '../../assets/trees/fruit1.png';
+import fruitTree2 from '../../assets/trees/fruit2.png';
+import fruitTree3 from '../../assets/trees/fruit3.png';
+
+// 设置贴图的缩放模式
+const setupTexture = (image) => {
+    const texture = PIXI.Texture.from(image);
+    texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+    return texture;
+};
+
+// 预处理所有状态的贴图
+const fruitTreeTextures = {
+    0: setupTexture(fruitTree0),
+    1: setupTexture(fruitTree1),
+    2: setupTexture(fruitTree2),
+    3: setupTexture(fruitTree3)
+};
 
 const FruitTree = ({ 
     id, 
-    type,
     position, 
-    scale,
-    fruitType,
-    fruitGrowthTime,
-    maxFruits,
-    currentFruits,
-    season,
-    lastDropped,
+    scale = [2.5, 2.5],
+    initialFruits = 3,
     canInteract,
     onInteract,
-    currentSeason
+    onFruitsChange  // 添加回调函数
 }) => {
-    const [isAnimating, setIsAnimating] = useState(false);
-    const [currentAnimation, setCurrentAnimation] = useState('idle');
-    const animations = useFruitTreeAnimations(type);
-    
-    // 检查是否在当前季节
-    const isInSeason = season.includes(currentSeason);
+    const [fruits, setFruits] = useState(initialFruits);
 
     const handleClick = useCallback((e) => {
-        e.stopPropagation(); // 阻止事件冒泡
-        
-        // 检查是否可以交互
-        if (!canInteract || isAnimating || currentFruits <= 0) {
-            return;
-        }
+        e.stopPropagation();
+        if (!canInteract || fruits <= 0) return;
 
-        // 设置动画
-        setIsAnimating(true);
-        setCurrentAnimation('shake');
+        // 减少果实数量
+        setFruits(prev => {
+            const newCount = Math.max(0, prev - 1);
+            // 通知父组件果实数量变化
+            onFruitsChange?.(id, newCount);
+            return newCount;
+        });
 
-        // 调用交互回调
-        onInteract('fruitTree', id, { fruit: fruitType });
+        // 触发交互回调
+        onInteract(id, ['apple']);
+    }, [canInteract, fruits, id, onInteract, onFruitsChange]);
 
-        // 动画结束后重置状态
-        setTimeout(() => {
-            setIsAnimating(false);
-            setCurrentAnimation('idle');
-        }, 500);
-
-    }, [canInteract, isAnimating, currentFruits, id, fruitType, onInteract]);
+    // 根据果实数量选择对应的贴图
+    const texture = useMemo(() => {
+        return fruitTreeTextures[fruits] || fruitTreeTextures[0];
+    }, [fruits]);
 
     return (
         <Container 
             position={[position.x, position.y]}
-            interactive={true}
-            cursor={canInteract && currentFruits > 0 ? 'pointer' : 'default'}
+            interactive={canInteract && fruits > 0}
+            cursor={canInteract && fruits > 0 ? 'pointer' : 'default'}
             pointerdown={handleClick}
         >
-            <AnimatedSprite
+            <Sprite
+                texture={texture}
                 anchor={0.5}
-                textures={animations?.idle || []}
-                isPlaying={isAnimating}
-                animationSpeed={0.1}
-                loop={false}
-                scale={scale}
+                scale={2}
             />
-            
-            {/* 显示果实数量指示器 */}
-            {currentFruits > 0 && (
-                <Container>
-                    {Array.from({ length: currentFruits }).map((_, index) => (
-                        <Graphics
-                            key={`fruit-${id}-${index}`}
-                            draw={g => {
-                                g.clear();
-                                g.beginFill(0xFF0000, 0.6);
-                                g.drawCircle(
-                                    20 + (index * 10), 
-                                    -30, 
-                                    5
-                                );
-                                g.endFill();
-                            }}
-                        />
-                    ))}
-                </Container>
-            )}
         </Container>
     );
 };

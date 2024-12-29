@@ -121,6 +121,7 @@ const Player = ({ onMove, checkCollision }) => {
     return (
         <Container position={[position.x, position.y]}>
             <AnimatedSprite
+                scale={2.5}
                 key={key}
                 anchor={0.5}
                 textures={animations[currentDirection]}
