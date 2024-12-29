@@ -1,7 +1,7 @@
 import { Graphics } from '@pixi/react';
 import { useState, useCallback, useEffect } from 'react';
 import * as PIXI from 'pixi.js';
-import collisionConfig from '../config/collisionAreas.json';
+import collisionConfig from '../../config/collisionAreas.json';
 
 const DebugCollisionTool = ({ cameraPosition, onCollisionAreasChange }) => {
     const [activeArea, setActiveArea] = useState(0);

@@ -1,0 +1,94 @@
+{
+  "chickens": [
+    {
+      "id": "chicken_01",
+      "position": { "x": 638, "y": 462 },
+      "type": "white",
+      "productType": "egg",
+      "productionTime": 21600000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "chicken_02",
+      "position": { "x": 577, "y": 474 },
+      "type": "brown",
+      "productType": "egg",
+      "productionTime": 21600000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "chicken_03",
+      "position": { "x": 630, "y": 495 },
+      "type": "black",
+      "productType": "egg",
+      "productionTime": 21600000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "chicken_04",
+      "position": { "x": 639, "y": 560 },
+      "type": "white",
+      "productType": "egg",
+      "productionTime": 21600000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "chicken_05",
+      "position": { "x": 727, "y": 455 },
+      "type": "brown",
+      "productType": "egg",
+      "productionTime": 21600000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "chicken_06",
+      "position": { "x": 690, "y": 504 },
+      "type": "black",
+      "productType": "egg",
+      "productionTime": 21600000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "chicken_07",
+      "position": { "x": 810, "y": 492 },
+      "type": "white",
+      "productType": "egg",
+      "productionTime": 21600000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "chicken_08",
+      "position": { "x": 788, "y": 431 },
+      "type": "brown",
+      "productType": "egg",
+      "productionTime": 21600000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "chicken_09",
+      "position": { "x": 731, "y": 547 },
+      "type": "black",
+      "productType": "egg",
+      "productionTime": 21600000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    }
+  ]
+} 

@@ -1,0 +1,74 @@
+{
+  "cows": [
+    {
+      "id": "cow_01",
+      "position": { "x": 346, "y": 680 },
+      "type": "brown",
+      "productType": "milk",
+      "productionTime": 43200000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "cow_02",
+      "position": { "x": 408, "y": 688 },
+      "type": "spotted",
+      "productType": "milk",
+      "productionTime": 43200000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "cow_03",
+      "position": { "x": 385, "y": 756 },
+      "type": "brown",
+      "productType": "milk",
+      "productionTime": 43200000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "cow_04",
+      "position": { "x": 494, "y": 779 },
+      "type": "spotted",
+      "productType": "milk",
+      "productionTime": 43200000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "cow_05",
+      "position": { "x": 490, "y": 707 },
+      "type": "brown",
+      "productType": "milk",
+      "productionTime": 43200000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "cow_06",
+      "position": { "x": 440, "y": 754 },
+      "type": "spotted",
+      "productType": "milk",
+      "productionTime": 43200000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    },
+    {
+      "id": "cow_07",
+      "position": { "x": 388, "y": 820 },
+      "type": "brown",
+      "productType": "milk",
+      "productionTime": 43200000,
+      "lastProduced": null,
+      "happiness": 100,
+      "hunger": 100
+    }
+  ]
+} 

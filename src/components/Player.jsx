@@ -9,13 +9,13 @@ const DIAGONAL_FACTOR = 0.707;
 const MOVE_SPEED = 5;
 
 const Player = ({ onMove, checkCollision }) => {
-    const [position, setPosition] = useState({ x: 400, y: 300 });
+    const [position, setPosition] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const [currentDirection, setCurrentDirection] = useState('down');
     const [isMoving, setIsMoving] = useState(false);
     const [key, setKey] = useState(0);
-
+    //使用 useMemo 的目的是确保 这些动画帧仅在初次渲染时创建一次，而不是在每次组件重新渲染时都重新创建。
     const animations = useMemo(() => {
         const baseTexture = PIXI.BaseTexture.from(player);
         baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
@@ -35,24 +35,19 @@ const Player = ({ onMove, checkCollision }) => {
             )
         };
     }, []);
-
+    // 避免每次组件渲染时都重新创建 handleMovement 函数，减少性能开销。
     const handleMovement = useCallback(() => {
+        // 如果鼠标没有按下，则停止移动
         if (!isMouseDown) {
             setIsMoving(false);
             return;
         }
-
+        else setIsMoving(true);
+        // 计算鼠标位置与窗口中心的偏移量
         const dx = mousePos.x - window.innerWidth / 2;
         const dy = mousePos.y - window.innerHeight / 2;
+        // 计算偏移量的长度
         const length = Math.sqrt(dx * dx + dy * dy);
-        
-        if (length < 10) {
-            setIsMoving(false);
-            return;
-        }
-
-        setIsMoving(true);
-
         const dirX = dx / length;
         const dirY = dy / length;
         

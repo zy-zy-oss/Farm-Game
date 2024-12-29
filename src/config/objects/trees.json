@@ -1,0 +1,165 @@
+{
+  "trees": [
+    {
+      "id": "tree_01",
+      "position": { "x": 402, "y": 220 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    },
+    {
+      "id": "tree_02",
+      "position": { "x": 401, "y": 268 },
+      "type": "oak",
+      "health": 100,
+      "dropItems": ["wood", "acorn"]
+    },
+    {
+      "id": "tree_03",
+      "position": { "x": 408, "y": 343 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    },
+    {
+      "id": "tree_04",
+      "position": { "x": 415, "y": 433 },
+      "type": "oak",
+      "health": 100,
+      "dropItems": ["wood", "acorn"]
+    },
+    {
+      "id": "tree_05",
+      "position": { "x": 458, "y": 249 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    },
+    {
+      "id": "tree_06",
+      "position": { "x": 463, "y": 323 },
+      "type": "oak",
+      "health": 100,
+      "dropItems": ["wood", "acorn"]
+    },
+    {
+      "id": "tree_07",
+      "position": { "x": 463, "y": 374 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    },
+    {
+      "id": "tree_08",
+      "position": { "x": 529, "y": 437 },
+      "type": "oak",
+      "health": 100,
+      "dropItems": ["wood", "acorn"]
+    },
+    {
+      "id": "tree_09",
+      "position": { "x": 548, "y": 200 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    },
+    {
+      "id": "tree_10",
+      "position": { "x": 553, "y": 270 },
+      "type": "oak",
+      "health": 100,
+      "dropItems": ["wood", "acorn"]
+    },
+    {
+      "id": "tree_11",
+      "position": { "x": 619, "y": 200 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    },
+    {
+      "id": "tree_12",
+      "position": { "x": 616, "y": 259 },
+      "type": "oak",
+      "health": 100,
+      "dropItems": ["wood", "acorn"]
+    },
+    {
+      "id": "tree_13",
+      "position": { "x": 731, "y": 320 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    },
+    {
+      "id": "tree_14",
+      "position": { "x": 1654, "y": 729 },
+      "type": "oak",
+      "health": 100,
+      "dropItems": ["wood", "acorn"]
+    },
+    {
+      "id": "tree_15",
+      "position": { "x": 1604, "y": 802 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    },
+    {
+      "id": "tree_16",
+      "position": { "x": 1695, "y": 797 },
+      "type": "oak",
+      "health": 100,
+      "dropItems": ["wood", "acorn"]
+    },
+    {
+      "id": "tree_17",
+      "position": { "x": 1770, "y": 793 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    },
+    {
+      "id": "tree_18",
+      "position": { "x": 1270, "y": 115 },
+      "type": "oak",
+      "health": 100,
+      "dropItems": ["wood", "acorn"]
+    },
+    {
+      "id": "tree_19",
+      "position": { "x": 1264, "y": 321 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    },
+    {
+      "id": "tree_20",
+      "position": { "x": 1357, "y": 163 },
+      "type": "oak",
+      "health": 100,
+      "dropItems": ["wood", "acorn"]
+    },
+    {
+      "id": "tree_21",
+      "position": { "x": 1469, "y": 145 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    },
+    {
+      "id": "tree_22",
+      "position": { "x": 1470, "y": 80 },
+      "type": "oak",
+      "health": 100,
+      "dropItems": ["wood", "acorn"]
+    },
+    {
+      "id": "tree_23",
+      "position": { "x": 1553, "y": 157 },
+      "type": "pine",
+      "health": 100,
+      "dropItems": ["wood", "pinecone"]
+    }
+  ]
+}

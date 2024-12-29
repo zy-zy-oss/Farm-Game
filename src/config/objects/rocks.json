@@ -1,0 +1,60 @@
+{
+  "rocks": [
+    {
+      "id": "rock_01",
+      "position": { "x": 1571, "y": 886 },
+      "size": "large",
+      "dropItems": ["stone", "iron"],
+      "health": 5,
+      "respawnTime": 600000
+    },
+    {
+      "id": "rock_02",
+      "position": { "x": 1549, "y": 901 },
+      "size": "medium",
+      "dropItems": ["stone", "coal"],
+      "health": 3,
+      "respawnTime": 480000
+    },
+    {
+      "id": "rock_03",
+      "position": { "x": 1168, "y": 418 },
+      "size": "small",
+      "dropItems": ["stone"],
+      "health": 2,
+      "respawnTime": 300000
+    },
+    {
+      "id": "rock_04",
+      "position": { "x": 1022, "y": 415 },
+      "size": "large",
+      "dropItems": ["stone", "iron"],
+      "health": 5,
+      "respawnTime": 600000
+    },
+    {
+      "id": "rock_05",
+      "position": { "x": 842, "y": 1037 },
+      "size": "medium",
+      "dropItems": ["stone", "coal"],
+      "health": 3,
+      "respawnTime": 480000
+    },
+    {
+      "id": "rock_06",
+      "position": { "x": 975, "y": 1045 },
+      "size": "small",
+      "dropItems": ["stone"],
+      "health": 2,
+      "respawnTime": 300000
+    },
+    {
+      "id": "rock_07",
+      "position": { "x": 1226, "y": 943 },
+      "size": "large",
+      "dropItems": ["stone", "iron"],
+      "health": 5,
+      "respawnTime": 600000
+    }
+  ]
+} 

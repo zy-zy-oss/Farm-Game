@@ -1,0 +1,40 @@
+{
+  "fruitTrees": [
+    {
+      "id": "fruitTree_01",
+      "type": "apple",
+      "position": { "x": 1260, "y": 191 },
+      "scale": 1.2,
+      "fruitType": "apple",
+      "fruitGrowthTime": 300000,
+      "maxFruits": 3,
+      "currentFruits": 3,
+      "season": ["spring", "summer", "fall"],
+      "lastDropped": null
+    },
+    {
+      "id": "fruitTree_02",
+      "type": "orange",
+      "position": { "x": 747, "y": 167 },
+      "scale": 1.1,
+      "fruitType": "orange",
+      "fruitGrowthTime": 240000,
+      "maxFruits": 4,
+      "currentFruits": 4,
+      "season": ["summer", "fall"],
+      "lastDropped": null
+    },
+    {
+      "id": "fruitTree_03",
+      "type": "peach",
+      "position": { "x": 737, "y": 273 },
+      "scale": 1.15,
+      "fruitType": "peach",
+      "fruitGrowthTime": 270000,
+      "maxFruits": 3,
+      "currentFruits": 3,
+      "season": ["summer"],
+      "lastDropped": null
+    }
+  ]
+} 
