@@ -1,5 +1,5 @@
 ## 简介
-
+在线预览： https://farmgame-zy.netlify.app
 
 ✨ 我的第一个从自己用素材绘图开始，从0到1制作的小游戏
 
