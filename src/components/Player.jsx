@@ -1,4 +1,3 @@
-import { Sprite } from '@pixi/react';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import * as PIXI from 'pixi.js';
 import player from '../assets/player.png';
@@ -21,16 +20,16 @@ const Player = ({ onMove, checkCollision }) => {
         baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
 
         return {
-            down: [0, 1, 2, 3].map(i => 
+            down: [0, 1, 2, 3].map(i =>
                 new PIXI.Texture(baseTexture, new PIXI.Rectangle(i * 48, 0, 48, 48))
             ),
-            up: [0, 1, 2, 3].map(i => 
+            up: [0, 1, 2, 3].map(i =>
                 new PIXI.Texture(baseTexture, new PIXI.Rectangle(i * 48, 48, 48, 48))
             ),
-            left: [0, 1, 2, 3].map(i => 
+            left: [0, 1, 2, 3].map(i =>
                 new PIXI.Texture(baseTexture, new PIXI.Rectangle(i * 48, 96, 48, 48))
             ),
-            right: [0, 1, 2, 3].map(i => 
+            right: [0, 1, 2, 3].map(i =>
                 new PIXI.Texture(baseTexture, new PIXI.Rectangle(i * 48, 144, 48, 48))
             )
         };
@@ -48,11 +47,11 @@ const Player = ({ onMove, checkCollision }) => {
         const dy = mousePos.y - window.innerHeight / 2;
         // 计算偏移量的长度
         const length = Math.sqrt(dx * dx + dy * dy);
-        const dirX = dx / length;
-        const dirY = dy / length;
-        
+        const dirX = dx / length;//计算cos值
+        const dirY = dy / length;//计算sin值
+
         let newDirection = currentDirection;
-        if (Math.abs(dirX) > Math.abs(dirY)) {
+        if (Math.abs(dirX) > Math.abs(dirY)) {//
             newDirection = dirX > 0 ? 'right' : 'left';
         } else {
             newDirection = dirY > 0 ? 'down' : 'up';
@@ -62,14 +61,14 @@ const Player = ({ onMove, checkCollision }) => {
             setCurrentDirection(newDirection);
             setKey(prev => prev + 1);
         }
-        
+
         const speed = MOVE_SPEED;
-        let newX = position.x + dirX * speed;
-        let newY = position.y + dirY * speed;
+        let newX = position.x + dirX * speed;//计算新的x坐标
+        let newY = position.y + dirY * speed;//计算新的y坐标
 
         newX = Math.max(32, Math.min(GAME_WIDTH * 2.5 - 32, newX));
         newY = Math.max(32, Math.min(GAME_HEIGHT * 2.5 - 32, newY));
-
+        //检查是否碰撞
         if (!checkCollision(newX, newY)) {
             setPosition({ x: newX, y: newY });
             onMove(newX, newY);
@@ -89,19 +88,19 @@ const Player = ({ onMove, checkCollision }) => {
 
     useEffect(() => {
         const handleMouseDown = (e) => {
-            if (e.button === 0) {
+            if (e.button === 0) { //0是鼠标左键
                 setIsMouseDown(true);
             }
         };
-        
+
         const handleMouseUp = (e) => {
             if (e.button === 0) {
                 setIsMouseDown(false);
             }
         };
-        
+
         const handleMouseMove = (e) => {
-            setMousePos({ 
+            setMousePos({
                 x: e.clientX,
                 y: e.clientY
             });

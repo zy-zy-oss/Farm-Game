@@ -6,7 +6,6 @@ import Rock from './objects/Rock';
 import Crop from './objects/Crop';
 import Cow from './objects/Cow';
 import Chicken from './objects/Chicken';
-
 import treeConfig from '../config/objects/trees.json';
 import fruitTreeConfig from '../config/objects/fruitTrees.json';
 import rockConfig from '../config/objects/rocks.json';
@@ -14,40 +13,13 @@ import cropConfig from '../config/objects/crops.json';
 import cowConfig from '../config/objects/cows.json';
 import chickenConfig from '../config/objects/chickens.json';
 
-// 视口范围常量
-const VIEWPORT_WIDTH = 960;
-const VIEWPORT_HEIGHT = 480;
-const MARGIN = 100;
-
-const ObjectsManager = ({ playerPosition, onInteract, fruitTrees }) => {
+const ObjectsManager = ({ playerPosition, onInteract, fruitTrees, checkCollision }) => {
     // 检查是否在交互范围内
     const checkInteractionRange = useCallback((objPos) => {
         const dx = objPos.x - playerPosition.x;
         const dy = objPos.y - playerPosition.y;
         return (dx * dx + dy * dy) < 10000; // 100 * 100，避免开方运算
     }, [playerPosition]);
-
-    // 检查是否在视口内
-    const isInViewport = useCallback((objPos) => {
-        const dx = objPos.x - playerPosition.x;
-        const dy = objPos.y - playerPosition.y;
-        return (
-            dx > -VIEWPORT_WIDTH / 2 - MARGIN &&
-            dx < VIEWPORT_WIDTH / 2 + MARGIN &&
-            dy > -VIEWPORT_HEIGHT / 2 - MARGIN &&
-            dy < VIEWPORT_HEIGHT / 2 + MARGIN
-        );
-    }, [playerPosition]);
-
-    // 过滤并记忆视口内的对象
-    const visibleObjects = useMemo(() => ({
-        trees: treeConfig.trees.filter(obj => isInViewport(obj.position)),
-        fruitTrees: fruitTrees.filter(obj => isInViewport(obj.position)),
-        rocks: rockConfig.rocks.filter(obj => isInViewport(obj.position)),
-        crops: cropConfig.crops.filter(obj => isInViewport(obj.position)),
-        cows: cowConfig.cows.filter(obj => isInViewport(obj.position)),
-        chickens: chickenConfig.chickens.filter(obj => isInViewport(obj.position))
-    }), [isInViewport, fruitTrees]);
 
     // 记忆交互处理函数
     const handleInteract = useMemo(() => ({
@@ -184,7 +156,6 @@ const ObjectsManager = ({ playerPosition, onInteract, fruitTrees }) => {
     }, []);
 
     const [rocks, setRocks] = useState(rockConfig.rocks);
-
     // 处理石头交互
     const handleRockInteract = useCallback((id) => {
         setRocks(prevRocks => {
@@ -194,7 +165,8 @@ const ObjectsManager = ({ playerPosition, onInteract, fruitTrees }) => {
 
     return (
         <Container>
-            {visibleObjects.fruitTrees.map(tree => (
+            {/* 渲染所有可见的对象，不再过滤视口 */}
+            {fruitTreeConfig.fruitTrees.map(tree => (
                 <FruitTree
                     key={tree.id}
                     {...tree}
@@ -203,7 +175,18 @@ const ObjectsManager = ({ playerPosition, onInteract, fruitTrees }) => {
                     onInteract={handleInteract.fruitTree}
                 />
             ))}
-            {visibleObjects.trees.map(tree => (
+
+            {chickenConfig.chickens.map(chicken => (
+                <Chicken
+                    key={chicken.id}
+                    {...chicken}
+                    canInteract={checkInteractionRange(chicken.position)}
+                    onInteract={handleInteract.chicken}
+                    checkCollision={checkCollision} 
+                />
+            ))}
+
+            {treeConfig.trees.map(tree => (
                 <Tree
                     key={tree.id}
                     {...tree}
@@ -211,7 +194,8 @@ const ObjectsManager = ({ playerPosition, onInteract, fruitTrees }) => {
                     onInteract={handleInteract.tree}
                 />
             ))}
-            {visibleObjects.rocks.map(rock => (
+
+            {rockConfig.rocks.map(rock => (
                 <Rock
                     key={rock.id}
                     {...rock}
@@ -220,7 +204,7 @@ const ObjectsManager = ({ playerPosition, onInteract, fruitTrees }) => {
                 />
             ))}
 
-            {visibleObjects.crops.map(crop => (
+            {cropConfig.crops.map(crop => (
                 <Crop
                     key={crop.id}
                     {...crop}
@@ -232,50 +216,17 @@ const ObjectsManager = ({ playerPosition, onInteract, fruitTrees }) => {
                 />
             ))}
 
-            {visibleObjects.cows.map(cow => (
+            {cowConfig.cows.map(cow => (
                 <Cow
                     key={cow.id}
                     {...cow}
                     canInteract={checkInteractionRange(cow.position)}
                     onInteract={handleInteract.cow}
-                />
-            ))}
-
-            {visibleObjects.chickens.map(chicken => (
-                <Chicken
-                    key={chicken.id}
-                    {...chicken}
-                    canInteract={checkInteractionRange(chicken.position)}
-                    onInteract={handleInteract.chicken}
-                />
-            ))}
-
-            {/* 渲染石头 */}
-            {rocks.map(rock => (
-                <Rock
-                    key={rock.id}
-                    {...rock}
-                    canInteract={true}
-                    onClick={(e, { action, health }) => {
-                        if (action === 'hit') {
-                            setRocks(prevRocks => {
-                                return prevRocks.map(r => {
-                                    if (r.id === rock.id) {
-                                        return {
-                                            ...r,
-                                            currentHealth: health
-                                        };
-                                    }
-                                    return r;
-                                });
-                            });
-                        }
-                    }}
-                    onInteract={handleRockInteract}
+                    checkCollision={checkCollision} 
                 />
             ))}
         </Container>
     );
 };
 
-export default ObjectsManager; 
+export default ObjectsManager;

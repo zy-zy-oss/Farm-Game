@@ -1,5 +1,5 @@
-
 canvas {
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
+  /* 让像素图在放大时保持像素锐利，不会模糊 */
+  image-rendering: pixelated;       /* Chrome/Safari/Opera */
+  image-rendering: crisp-edges;     /* Firefox */
 }
