@@ -9,7 +9,7 @@ import collisionConfig from '../config/collisionAreas.json';
 import fruitTreeConfig from '../config/objects/fruitTrees.json';
 import DevTools from './tools/DevTools';
 const FarmScene = () => {
-  const [cameraPosition, setCameraPosition] = useState({ x: 0, y: 0 });
+  const [cameraPosition, setCameraPosition] = useState({ x: -480*2.5+window.innerWidth/2, y: -240*2.5+window.innerHeight/2  });
   const [playerPosition, setPlayerPosition] = useState({ x: 400, y: 300 });
   const [fruitTrees, setFruitTrees] = useState(fruitTreeConfig.fruitTrees);
 
