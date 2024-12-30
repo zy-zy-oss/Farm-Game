@@ -8,7 +8,7 @@ const DIAGONAL_FACTOR = 0.707;
 const MOVE_SPEED = 5;
 
 const Player = ({ onMove, checkCollision }) => {
-    const [position, setPosition] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    const [position, setPosition] = useState({ x: 480*2.5, y: 240*2.5});
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const [currentDirection, setCurrentDirection] = useState('down');
